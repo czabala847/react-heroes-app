@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import { HeroCard } from "./HeroCard";
 
@@ -10,7 +10,9 @@ interface Prop {
 }
 
 export const HeroList: React.FC<Prop> = ({ publisher }) => {
-  const heroes: Hero[] = getHeroesByPublisher(publisher);
+  const heroes: Hero[] = useMemo(() => {
+    return getHeroesByPublisher(publisher);
+  }, [publisher]);
 
   return (
     <div className="row row-cols-1 row-cols-md-3 g-3">

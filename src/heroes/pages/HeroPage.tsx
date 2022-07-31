@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Navigate,
   NavigateFunction,
@@ -11,7 +11,10 @@ import { Hero } from "../interfaces/Hero.interface";
 export const HeroPage: React.FC = () => {
   const navigate: NavigateFunction = useNavigate();
   const { id } = useParams();
-  const hero: Hero | undefined = getHeroById(id!);
+
+  const hero: Hero | undefined = useMemo(() => {
+    return getHeroById(id!);
+  }, [id]);
 
   const onNavigateBack = () => {
     navigate(-1);
