@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
-export const Login = () => {
+export const Login: React.FC = () => {
   const navigate: NavigateFunction = useNavigate();
 
   const onLogin = () => {
