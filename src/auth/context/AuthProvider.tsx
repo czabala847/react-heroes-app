@@ -3,13 +3,17 @@ import React, { useReducer } from "react";
 import { AuthContext } from "./AuthContext";
 import { authReducer } from "./authReducer";
 
-import { AuthState } from "../interfaces/AuthState.interface";
+import {
+  AuthActionType,
+  AuthActionKind,
+  IAuthState,
+} from "../interfaces/AuthState.interface";
 
 interface Props {
   children: React.ReactNode;
 }
 
-const initialState: AuthState = {
+const initialState: IAuthState = {
   logged: false,
   user: null,
 };
@@ -17,5 +21,21 @@ const initialState: AuthState = {
 export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  return <AuthContext.Provider value={{}}>{children}</AuthContext.Provider>;
+  const login = (username: string) => {
+    const action: AuthActionType = {
+      type: AuthActionKind.LOGIN,
+      payload: {
+        id: "ABC",
+        name: username,
+      },
+    };
+
+    dispatch(action);
+  };
+
+  return (
+    <AuthContext.Provider value={{ login, state }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

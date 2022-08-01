@@ -1,6 +1,11 @@
-export interface AuthState {
+export interface IUser {
+  id: string;
+  name: string;
+}
+
+export interface IAuthState {
   logged: boolean;
-  user: string | null;
+  user: IUser | null;
 }
 
 // Action types
@@ -10,6 +15,6 @@ export enum AuthActionKind {
 }
 
 // Actions
-export type AuthAction =
-  | { type: AuthActionKind.LOGIN; payload: string }
+export type AuthActionType =
+  | { type: AuthActionKind.LOGIN; payload: IUser }
   | { type: AuthActionKind.LOGOUT };

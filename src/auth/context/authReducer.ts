@@ -1,10 +1,10 @@
 import {
-  AuthAction,
+  AuthActionType,
   AuthActionKind,
-  AuthState,
+  IAuthState,
 } from "../interfaces/AuthState.interface";
 
-export const authReducer = (state: AuthState, action: AuthAction) => {
+export const authReducer = (state: IAuthState, action: AuthActionType) => {
   switch (action.type) {
     case AuthActionKind.LOGIN:
       return {
