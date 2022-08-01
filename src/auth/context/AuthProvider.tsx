@@ -7,7 +7,8 @@ import {
   AuthActionType,
   AuthActionKind,
   IAuthState,
-} from "../interfaces/AuthState.interface";
+  IUser,
+} from "../interfaces";
 
 interface Props {
   children: React.ReactNode;
@@ -18,19 +19,29 @@ const initialState: IAuthState = {
   user: null,
 };
 
-export const AuthProvider: React.FC<Props> = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, initialState);
+const init = () => {
+  const user = localStorage.getItem("user");
 
-  const login = (username: string) => {
+  return {
+    logged: user ? true : false,
+    user: user ? JSON.parse(user) : user,
+  };
+};
+
+export const AuthProvider: React.FC<Props> = ({ children }) => {
+  const [state, dispatch] = useReducer(authReducer, initialState, init);
+
+  const login = (name: string) => {
+    const user: IUser = { id: "ABC", name };
+
     const action: AuthActionType = {
       type: AuthActionKind.LOGIN,
-      payload: {
-        id: "ABC",
-        name: username,
-      },
+      payload: user,
     };
 
     dispatch(action);
+
+    localStorage.setItem("user", JSON.stringify(user));
   };
 
   return (
