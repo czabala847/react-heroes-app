@@ -44,8 +44,13 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(user));
   };
 
+  const logout = () => {
+    localStorage.removeItem("user");
+    dispatch({ type: AuthActionKind.LOGOUT });
+  };
+
   return (
-    <AuthContext.Provider value={{ login, state }}>
+    <AuthContext.Provider value={{ state, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

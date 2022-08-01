@@ -7,10 +7,12 @@ import { IAuthContext } from "../../auth/interfaces";
 
 export const Navbar = () => {
   const navigate: NavigateFunction = useNavigate();
-  const { state } = useContext(AuthContext) as IAuthContext;
+  const { state, logout } = useContext(AuthContext) as IAuthContext;
   const { user } = state;
 
   const onLogout = () => {
+    logout();
+
     navigate("/login", {
       replace: true,
     });
